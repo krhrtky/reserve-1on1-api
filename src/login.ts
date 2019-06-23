@@ -40,6 +40,4 @@ export const login: (page: Page, user: User) => Promise<void> = async (
   await page.click('#passwordNext')
   await page.waitFor(2000)
 
-  await page.goto('https://mail.google.com/mail/u/0/?tab=wm&ogbl#inbox')
-  await page.waitFor(1000)
 }
