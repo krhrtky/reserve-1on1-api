@@ -14,7 +14,7 @@ const template: MailTemplate = {
   body: process.env.BODY as string
 }
 
-const start = async () => {
+export const start = async () => {
   let browser: Browser | null = null
   try {
     browser = await puppeteer.launch({
