@@ -8,19 +8,25 @@ const user: User = {
   password: process.env.PASSWORD as string
 }
 
-const template: MailTemplate = {
-  to: process.env.TO as string,
-  subject: process.env.SUBJECT as string,
-  body: process.env.BODY as string
-}
-
-export const start = async () => {
+export const start = async ({
+  subject,
+  mailBody
+}: {
+  subject: string
+  mailBody: string
+}) => {
   let browser: Browser | null = null
   try {
     browser = await puppeteer.launch({
       headless: process.env.ENV === 'production'
     })
     const page = await browser.newPage()
+
+    const template: MailTemplate = {
+      to: process.env.TO as string,
+      subject,
+      body: mailBody
+    }
 
     await login(page, user)
     await send(page, template)
@@ -32,4 +38,3 @@ export const start = async () => {
     }
   }
 }
-;(async () => await start())()
